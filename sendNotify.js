@@ -1369,57 +1369,81 @@ function BarkNotify(text, desp, params = {}) {
 function tgBotNotify(text, desp) {
     return new Promise(resolve => {
         if (TG_BOT_TOKEN && TG_USER_ID) {
-            const options = {
-                url: `https://${TG_API_HOST}/bot${TG_BOT_TOKEN}/sendMessage`,
-                json: {
-                    chat_id: `${TG_USER_ID}`,
-                    text: `${text}\n\n${desp}`,
-                    disable_web_page_preview: true
-                },
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                timeout
-            }
-            if (TG_PROXY_HOST && TG_PROXY_PORT) {
-                const tunnel = require("tunnel");
-                const agent = {
-                    https: tunnel.httpsOverHttp({
-                        proxy: {
-                            host: TG_PROXY_HOST,
-                            port: TG_PROXY_PORT * 1,
-                            proxyAuth: TG_PROXY_AUTH
-                        }
-                    })
+            const maxSegmentLength = 4000; 
+            const despSegments = [];
+            let remainingDesp = desp;
+            
+            while (remainingDesp.length > maxSegmentLength) {
+                let index = remainingDesp.lastIndexOf('\n', maxSegmentLength);
+                if (index === -1) {
+                    index = maxSegmentLength;
                 }
-                Object.assign(options, { agent })
+                despSegments.push(remainingDesp.slice(0, index));
+                remainingDesp = remainingDesp.slice(index).trimLeft();
             }
-            $.post(options, (err, resp, data) => {
-                try {
-                    if (err) {
-                        console.log('telegram发送通知消息失败！！\n')
-                        console.log(err);
-                    } else {
-                        data = JSON.parse(data);
-                        if (data.ok) {
-                            console.log('Telegram发送通知消息成功🎉\n')
-                        } else if (data.error_code === 400) {
-                            console.log('请主动给bot发送一条消息并检查接收用户ID是否正确。\n')
-                        } else if (data.error_code === 401) {
-                            console.log('Telegram bot token 填写错误。\n')
-                        }
+            if (remainingDesp) {
+                despSegments.push(remainingDesp);
+            }
+            
+            const sendSegment = (index) => {
+                if (index < despSegments.length) {
+                    const options = {
+                        url: `https://${TG_API_HOST}/bot${TG_BOT_TOKEN}/sendMessage`,
+                        json: {
+                            chat_id: `${TG_USER_ID}`,
+                            text: `${text}\n\n${despSegments[index]}`, 
+                            disable_web_page_preview: true
+                        },
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        timeout
+                    };
+                    if (TG_PROXY_HOST && TG_PROXY_PORT) {
+                        const tunnel = require("tunnel");
+                        const agent = {
+                            https: tunnel.httpsOverHttp({
+                                proxy: {
+                                    host: TG_PROXY_HOST,
+                                    port: TG_PROXY_PORT * 1,
+                                    proxyAuth: TG_PROXY_AUTH
+                                }
+                            })
+                        };
+                        Object.assign(options, { agent });
                     }
-                } catch (e) {
-                    $.logErr(e, resp);
-                } finally {
-                    resolve(data);
+                    $.post(options, (err, resp, data) => {
+                        if (err) {
+                            console.log('telegram发送通知消息失败！！\n');
+                            console.log(err);
+                        } else {
+                            data = JSON.parse(data);
+                            if (data.ok) {
+                                console.log('Telegram发送通知消息成功🎉\n');
+                            } else if (data.error_code === 400) {
+                                console.log('请主动给bot发送一条消息并检查接收用户ID是否正确。\n');
+                            } else if (data.error_code === 401) {
+                                console.log('Telegram bot token 填写错误。\n');
+                            }
+                        }
+                        // 继续发送下一段消息
+                        sendSegment(index + 1);
+                    });
+                } else {
+                    // 所有消息发送完成后 resolve
+                    resolve();
                 }
-            })
+            };
+            // 开始发送第一段消息
+            sendSegment(0);
         } else {
-            resolve()
+            resolve();
         }
-    })
+    });
 }
+
+
+
 
 function ddBotNotify(text, desp) {
     return new Promise((resolve) => {
