@@ -8,7 +8,7 @@
          jd_wyw_notify // 是否推送通知（true/false），默认不推送
          jd_wyw_pinFilter // 账号pin过滤，多个用@进行分割
 
-cron:55 6,14,18 * * *
+cron:1 6,14,18 * * *
 
 */
 
