@@ -30,6 +30,7 @@ pnpm install -g @types/node
 pnpm install -g request
 pnpm install -g jsdom
 pnpm install -g crc
+pnpm install -g qs
 pnpm install -g moment
 pnpm install -g cheerio
 pnpm install -g dotenv
