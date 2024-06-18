@@ -1,7 +1,7 @@
 /*
 活动名称：京豆红包雨
-环境变量：jd_redRain2021_threads // 控制并发线程数（正整数），默认1，最大10，尽量使用默认值，否则请开启代理运行
-        jd_redRain2021_interval // 自定义运行间隔时长（整数，单位毫秒），默认500
+环境变量：jd_redRain2021_threads // 控制并发线程数（正整数），默认1，最大3，尽量使用默认值，否则请开启代理运行
+        jd_redRain2021_interval // 自定义运行间隔时长（整数，单位毫秒），默认2000
         jd_redRain2021_notify // 是否推送通知（true/false），默认不推送
         jd_redRain2021_pinFilter // 账号pin过滤，多个用@进行分割
 
