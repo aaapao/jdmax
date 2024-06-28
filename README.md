@@ -1,6 +1,8 @@
 ## JDMAX
 
 声明: 此库所有内容仅用于测试学习，测试完后请自行删除！！！
+声明: 此库所有内容仅用于测试学习，测试完后请自行删除！！！
+声明: 此库所有内容仅用于测试学习，测试完后请自行删除！！！
 
 #### 青龙拉取代码：
 
@@ -22,7 +24,7 @@ arcadia repo jdmax "https://github.com/9Rebels/jdmax.git" main --updateTaskList 
 
 ## 简要流程
 
-### 旧版本青龙执行：1.2.4.5 条
+### 旧版本青龙执行：1.2.4.5.6 条
 
 1、部署青龙并登陆。
 
@@ -34,11 +36,11 @@ RepoFileExtensions="js py"修改为 RepoFileExtensions="js py sh" 保存；
 
 4、订阅运行完毕，到定时任务搜索依赖安装任务执行；
 
-4、到环境变量，创建变量，名称: JD_COOKIE,值：获取的数据，多个依次创建；
+5、到环境变量，创建变量，名称: JD_COOKIE,值：获取的数据，多个依次创建；
 
-5、配置通知，通知的 key 填写到配置管理 config.sh 文件；
+6、配置通知，通知的 key 填写到配置管理 config.sh 文件；
 
-6、sendnotify.js 文件请拷贝库里的到青龙 deps 目录下，否则会自带覆盖；
+7、sendnotify.js 文件请拷贝库里的到青龙 deps 目录下，否则会自带覆盖；
 
 ## 相关说明
 
