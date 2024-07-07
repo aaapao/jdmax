@@ -2,7 +2,7 @@
 当日收支查询
 环境变量：jd_querryBeans_notify // 是否推送通知（true/false），默认不推送
 
-1 1 1 1 *
+cron:1 1 1 1 *
 
 */
 
