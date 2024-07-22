@@ -2,7 +2,6 @@
 活动名称：京东资产变动
 环境变量：
 jd_bean_change_interval // 自定义运行间隔时长（整数，单位毫秒），默认1500
-jd_bean_change_notify // 是否推送通知（true/false），默认不推送
 jd_bean_change_pinFilter // 账号pin过滤，多个用@进行分割
 jd_bean_change_farm // 是否开启东东农场查询（true/false），默认开启
 jd_bean_change_xinfarm // 是否开启新东东农场查询（true/false），默认开启
@@ -16,9 +15,10 @@ jd_bean_change_jingbean // 是否开启过期京豆查询（true/false），默�
 jd_bean_change_market // 是否开启汪贝余额查询（true/false），默认开启
 jd_bean_change_coupon // 是否开启优惠券查询（true/false），默认开启
 jd_bean_change_wallet // 是否开启钱包余额查询（true/false），默认开启
-jd_bean_change_hbChannel // 是否开启小程序省钱币查询（true/false），默认不开启
+jd_bean_change_hbChannel // 是否开启小程序省钱币查询（true/false），默认开启
 jd_bean_change_prizeNotify // 是否单独推送账号通知（true/false），默认不推送
-jd_bean_change_mainnotify // 是否开启成熟和快过期通知（true/false），默认不开启
+jd_bean_change_mainnotify // 是否开启成熟和快过期通知（true/false），默认不推送
+jd_bean_change_notify // 是否推送通知（true/false），默认不推送
 jd_bean_change_intpersent  // 分段通知数量，默认5
 
 ## wxpusher一对一推送
